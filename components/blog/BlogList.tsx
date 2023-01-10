@@ -68,5 +68,3 @@ export default function BlogList({ posts }: Props) {
     </div>
   )
 }
-
-// 1:41:46 Building the blog list component 2/2

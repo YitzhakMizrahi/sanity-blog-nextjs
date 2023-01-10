@@ -1,20 +1,21 @@
 import { previewData } from 'next/headers'
-import { groq } from 'next-sanity'
-import { client } from './../../lib/sanity.client'
-import PreviewSuspense from '../../components/blog/PreviewSuspense'
+import PreviewSuspense from './../../components/blog/PreviewSuspense';
 import PreviewBlogList from './../../components/blog/PreviewBlogList';
 import BlogList from './../../components/blog/BlogList';
+import { client } from '../../lib/sanity.client'
+import { groq } from 'next-sanity'
 
-import { SpeakerWaveIcon } from '@heroicons/react/24/solid'
-const query = groq`*[_type=='post'] {
-  ...,
-  author->,
-  categories[]->
-} | order(_createdAt desc)
+
+const query = groq`
+*[_type=='post'] {
+   ...,
+   author->,
+   categories[]->
+ } | order(_createdAt desc)
 `
 
 export default async function IndexPage() {
-  if (previewData()) {
+  if (previewData()?.token) {
     return (
       <PreviewSuspense
         fallback={

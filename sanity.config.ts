@@ -6,6 +6,7 @@ import { schemaTypes } from './schemas'
 import { myTheme } from './theme'
 import StudioNavbar from './components/studio/StudioNavbar'
 import Logo from './components/studio/Logo'
+import { getDefaultDocumentNode } from './structure';
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!
@@ -16,7 +17,13 @@ export default defineConfig({
   title: 'YM Content Studio',
   projectId,
   dataset,
-  plugins: [deskTool(), visionTool(), codeInput()],
+  plugins: [
+    deskTool({
+      defaultDocumentNode: getDefaultDocumentNode,
+    }),
+    visionTool(),
+    codeInput(),
+  ],
   schema: {
     types: schemaTypes,
   },
